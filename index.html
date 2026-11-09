@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulador de resultados | Level Up</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+<header><a class="brand" href="#">Level Up</a><span class="header-label">INTELIGÊNCIA COMERCIAL</span><a class="header-link" href="#calculator">Simular <span>↓</span></a></header>
+<main>
+<section class="intro"><div><p class="eyebrow"><span></span> SIMULADOR DE RESULTADOS</p><h1>Quanto sua empresa<br>pode <em>faturar?</em></h1><p class="subtitle">Explore cenários e estime o faturamento a partir dos indicadores do seu funil comercial.</p></div></section>
+<div class="workspace">
+<section class="inputs panel">
+<div class="section-top"><div><p class="eyebrow">01 / PREMISSAS</p><h2>Configure seu cenário</h2></div><button id="reset" type="button">↺ Restaurar</button></div>
+<p class="section-description">Comece pelos indicadores da sua operação.</p>
+<form id="calculator"><div id="fields"></div></form>
+<p class="input-note">A projeção é atualizada a cada ajuste.</p>
+</section>
+<section class="results" aria-label="Resultados da simulação">
+<div class="revenue"><div class="revenue-top"><span>02 / PROJEÇÃO MENSAL</span><span class="estimate">Estimativa</span></div><p>Faturamento projetado</p><output id="revenue"></output><div class="revenue-bottom"><span><strong id="sales"></strong> vendas projetadas</span><span>Ticket de <b id="ticketLabel"></b></span></div></div>
+<div class="metrics panel">
+<div><span>Custo por agendamento</span><strong id="cpa"></strong><small>Investimento ÷ agendamentos</small></div>
+<div><span>Custo por reunião realizada</span><strong id="costMeeting"></strong><small>Investimento ÷ comparecimentos</small></div>
+<div><span>Custo por cliente</span><strong id="cac"></strong><small>Investimento ÷ vendas</small></div>
+<div><span>Retorno sobre anúncios</span><strong id="roas"></strong><small>Faturamento ÷ investimento</small></div>
+</div>
+<div class="team panel"><div class="section-top"><h2>Equipe para esse cenário</h2><span class="muted">EQUIPE ESTIMADA</span></div>
+<div class="team-grid"><div><span>SDRs</span><strong id="sdrCount"></strong><small>Pré-vendas</small></div><div><span>Closers</span><strong id="closerCount"></strong><small>Fechamento</small></div></div>
+<details><summary>Ajustar capacidade da equipe</summary><div class="capacity"><label>Leads por SDR / mês<input type="number" id="sdrCapacity" value="750" min="1" max="100000" step="1"></label><label>Reuniões por closer / mês<input type="number" id="closerCapacity" value="90" min="1" max="100000" step="1"></label></div><p>A quantidade de profissionais é arredondada para cima.</p></details></div>
+<div class="funnel panel"><div class="section-top"><h2>Da oportunidade à venda</h2><span class="muted">SEU FUNIL</span></div><div id="funnel"></div><div class="net"><div><span>Faturamento menos anúncios</span><small>Valor antes dos demais custos da operação.</small></div><strong id="net"></strong></div></div>
+<p class="disclaimer">Cada etapa do funil é arredondada para baixo. Os resultados são estimativas.</p>
+<div id="announcement" class="sr-only" aria-live="polite"></div>
+</section></div>
+<section class="cta"><div><p class="eyebrow">PRÓXIMO PASSO</p><h2>Qual meta sua operação pode alcançar?</h2><p>Ajuste as premissas para explorar outros cenários de crescimento.</p></div><a href="#calculator">Voltar à simulação <span>↑</span></a></section>
+<footer><span>LEVEL UP</span><span>Simulador de resultados</span></footer>
+</main></body></html>
