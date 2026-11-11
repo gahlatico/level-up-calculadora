@@ -6,11 +6,12 @@ const fields = [
   ["ag", "Taxa de agendamento", 0, 100, 1, 30, "%"],
   ["comp", "Taxa de comparecimento", 0, 100, 1, 65, "%"],
   ["conv", "Taxa de conversão", 0, 100, 1, 20, "%"],
-  ["ticket", "Ticket médio", 0, 300000, 500, 25000, "R$"]
+  ["ticket", "Ticket médio", 0, 300000, 500, 25000, "R$"],
+  ["margin", "% Lucro/Faturamento", 0, 100, 1, 0, "%"]
 ];
 const capacities = { sdrCapacity: 750, closerCapacity: 90 };
 
-function calculate({ invest, cpl, ag, comp, conv, ticket, sdrCapacity, closerCapacity }) {
+function calculate({ invest, cpl, ag, comp, conv, ticket, margin = 0, sdrCapacity, closerCapacity }) {
   const leads = Math.floor(invest / cpl);
   const appointments = Math.floor(leads * ag / 100);
   const meetings = Math.floor(appointments * comp / 100);
@@ -18,6 +19,7 @@ function calculate({ invest, cpl, ag, comp, conv, ticket, sdrCapacity, closerCap
   const revenue = sales * ticket;
   return {
     leads, appointments, meetings, sales, revenue,
+    profit: revenue * margin / 100,
     cpa: appointments ? invest / appointments : null,
     costMeeting: meetings ? invest / meetings : null,
     cac: sales ? invest / sales : null,
@@ -65,7 +67,7 @@ function init() {
     const input = Object.fromEntries(fields.map(([id]) => [id, valueOf(byId(id))]));
     for (const id of Object.keys(capacities)) input[id] = valueOf(byId(id));
     const result = calculate(input);
-    const metrics = ["revenue", "net", "cpa", "costMeeting", "cac"];
+    const metrics = ["revenue", "profit", "net", "cpa", "costMeeting", "cac"];
     for (const id of metrics) byId(id).textContent = result[id] === null ? "—" : money.format(result[id]);
     for (const id of ["sales", "sdrCount", "closerCount"]) byId(id).textContent = number.format(result[id]);
     byId("ticketLabel").textContent = money.format(input.ticket);
@@ -76,7 +78,7 @@ function init() {
       <div class="funnel-row"><span>${name}</span><div class="bar-track">
       <div class="bar" style="width:${result.leads ? count / result.leads * 100 : 0}%"></div>
       </div><b>${number.format(count)}</b></div>`).join("");
-    byId("announcement").textContent = `Faturamento projetado: ${money.format(result.revenue)}. ${result.sales} vendas.`;
+    byId("announcement").textContent = `Faturamento projetado: ${money.format(result.revenue)}. Lucro projetado: ${money.format(result.profit)}. ${result.sales} vendas.`;
   }
 
   function sync(id) {

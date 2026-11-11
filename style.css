@@ -43,3 +43,7 @@ body { background: var(--bg); }
 .funnel-row:last-child .bar { background: var(--funnel-sold); }
 .estimate { background: var(--badge-bg); color: var(--badge-text); }
 .cta a, .cta a span { color: var(--brand-ink); }
+.profit-projection { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.profit-projection p { margin: 0 0 8px; }
+.revenue .profit-projection output { font-size: calc(clamp(32px, 3.5vw, 48px) + 3pt); }
+
